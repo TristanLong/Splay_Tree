@@ -178,16 +178,16 @@ void deleteNode(node*& root, int key) {
 	if (root == NULL) return;
 
 	//Splay nút cần xóa lên gốc cây
-		splayTree(root, key);
+	splayTree(root, key);
 
 	//Kiểm tra xem nút cần xóa có tồn tại trong cây không
-		if (root->data != key) return;
+	if (root->data != key) return;
 
 	node* maxRightOfLeftSubTree = root->left;
-	while (maxRightOfLeftSubTree->right != NULL)
-		maxRightOfLeftSubTree = maxRightOfLeftSubTree->right;
-
 	if (maxRightOfLeftSubTree != NULL) {
+		while (maxRightOfLeftSubTree->right != NULL)
+			maxRightOfLeftSubTree = maxRightOfLeftSubTree->right;
+
 		splayTree(root->left, maxRightOfLeftSubTree->data);
 
 		node* temp = root;
@@ -213,8 +213,8 @@ void preOrder(node* root) {
 
 int main() {
 	node* root = NULL;
-	const int MAX = 9;
-	int array[] = { 5,3,7,2,4,6,8,1,9 };
+	const int MAX = 10;
+	int array[] = { 24,17,11,53,4,13,15,8,14,27 };
 	for (int i = 0; i < MAX; i++) {
 		insert(root, array[i]);
 	}
@@ -228,13 +228,13 @@ int main() {
 		cout << "\nFOUND";
 	else
 		cout << "\nNOT found";
-	cout << "\nPreOrder: ";
+	cout << "\nPreOrder after search: ";
 	preOrder(root);
 
 	cout << "\nEnter number your want to delete: ";
 	cin >> number;
 	deleteNode(root, number);
-	cout << "\nPreOrder: ";
+	cout << "\nPreOrder after delete: ";
 	preOrder(root);
 
 	return 0;
